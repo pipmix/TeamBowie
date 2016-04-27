@@ -8,7 +8,7 @@
 
 #include "Game.h"
 
-static TCHAR szWindowClass[] = _T("MKii");
+static TCHAR szWindowClass[] = ("MKii");
 Game * game;
 
 HINSTANCE hInst;
