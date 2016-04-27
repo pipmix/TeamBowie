@@ -66,16 +66,16 @@ Game::Game(HWND hWnd) {
 
 		sb = new SpriteBatch(context);
 
-		sf = new SpriteFont(device,L"BerlienSans12.spritefont");
+		sf = new SpriteFont(device,L"Assets/BerlienSans12.spritefont");
 
 
-		CreateDDSTextureFromFile(device, L"cont.dds", NULL, &c1, NULL);
-		CreateDDSTextureFromFile(device, L"circle.dds", NULL, &b_circle, NULL);
-		CreateDDSTextureFromFile(device, L"dpad.dds", NULL, &b_dpad, NULL);
-		CreateDDSTextureFromFile(device, L"l_larger.dds", NULL, &b_l_larger, NULL);
-		CreateDDSTextureFromFile(device, L"lsmall.dds", NULL, &b_lsmall, NULL);
-		CreateDDSTextureFromFile(device, L"smallcircle.dds", NULL, &b_smallecircle, NULL);
-		CreateDDSTextureFromFile(device, L"square.dds", NULL, &b_square, NULL);
+		CreateDDSTextureFromFile(device, L"Assets/cont.dds", NULL, &c1, NULL);
+		CreateDDSTextureFromFile(device, L"Assets/circle.dds", NULL, &b_circle, NULL);
+		CreateDDSTextureFromFile(device, L"Assets/dpad.dds", NULL, &b_dpad, NULL);
+		CreateDDSTextureFromFile(device, L"Assets/l_larger.dds", NULL, &b_l_larger, NULL);
+		CreateDDSTextureFromFile(device, L"Assets/lsmall.dds", NULL, &b_lsmall, NULL);
+		CreateDDSTextureFromFile(device, L"Assets/smallcircle.dds", NULL, &b_smallecircle, NULL);
+		CreateDDSTextureFromFile(device, L"Assets/square.dds", NULL, &b_square, NULL);
 
 		
 		
