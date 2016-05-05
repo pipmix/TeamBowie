@@ -1,5 +1,6 @@
 #pragma once
 #include "pch.h"
+#include "Network.h"
 
 
 
@@ -51,20 +52,7 @@ private:
 
 
 
-	// SOCKET
 
-	WSADATA wsaData;
-	int iResult;
-
-	SOCKET ListenSocket = INVALID_SOCKET;
-	SOCKET ClientSocket = INVALID_SOCKET;
-
-	struct addrinfo *result = NULL;
-	struct addrinfo hints;
-
-	int iSendResult;
-	char recvbuf[DEFAULT_BUFLEN];
-	int recvbuflen = DEFAULT_BUFLEN;
 
 
 
@@ -79,22 +67,24 @@ private:
 	bool filled = 0;
 
 
-	// socket
+	// NETWORKING
+	int port2; 
 
-	SOCKET s;
-	struct sockaddr_in server, si_other;
-	int slen, recv_len;
-	char buf[BUFLEN];
-	WSADATA wsa;
+	Network Session;
+	USocket Socket;
+	char bufff[sizeof(js_event)];
 
-
-	std::unique_ptr<Keyboard> keyboard;
+	js_event e;
 
 
+	bool B_L1, B_L2, B_L3, B_R1, B_R2, B_R3;
+	bool B_1, B_2, B_3, B_4;
+	bool B_9, B_10, B_11, B_12;
+	bool B_UP, B_DOWN, B_LEFT, B_RIGHT;
+	float B_LX, B_LY, B_RX, B_RY;
 
 
+	bool B_SET;
 
-
-
-
+	bool debug;
 };

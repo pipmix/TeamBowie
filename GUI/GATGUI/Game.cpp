@@ -77,54 +77,19 @@ Game::Game(HWND hWnd) {
 		CreateDDSTextureFromFile(device, L"Assets/smallcircle.dds", NULL, &b_smallecircle, NULL);
 		CreateDDSTextureFromFile(device, L"Assets/square.dds", NULL, &b_square, NULL);
 
+		port2 = 9787;
 		
-		
-		
-		stringList[0] = L"test";
-		stringList[1] = L"test";
-		
-
-
-
-		slen = sizeof(si_other);
-
-		
-		AddString(L"Initialising Winsock...");
-		if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0){
-			AddString(L"Failed. Error Code :");
-			exit(EXIT_FAILURE);
-		}
-		AddString(L"Initialised.");
-
-
-		if ((s = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET)
-			AddString(L"Could not create socket");
-		
-		AddString(L"Socket created");
-
-		//Prepare the sockaddr_in structure
-		server.sin_family = AF_INET;
-		server.sin_addr.s_addr = INADDR_ANY;
-		server.sin_port = htons(PORT);
-
-		bind(s, (struct sockaddr *)&server, sizeof(server));
-		//Bind
-		//if (bind(s, (struct sockaddr *)&server, sizeof(server)) == SOCKET_ERROR)
-		//{
-		//	AddString(L"Bind failed with error code");
-		//	exit(EXIT_FAILURE);
-		//}
+		Socket.Bind(port2);
 		AddString(L"Bind done");
 
 
-		//keyboard = (new Keyboard);
 
 
+		B_SET = B_UP = B_DOWN = B_LEFT = B_RIGHT = B_L1 = B_L2 = B_L3 = B_R1 = B_R2 = B_R3 = B_1 = B_2 = B_3 = B_4 = B_9 = B_10 = B_11 = B_12 = false;
+		B_LX = B_LY = B_RX = B_RY = 0.0f;
 
 
-
-
-
+		debug = false;
 
 
 }
@@ -146,8 +111,7 @@ void Game::AddString(wstring s) {
 
 Game::~Game() {
 
-	closesocket(s);
-	WSACleanup();
+
 
 
 
@@ -163,30 +127,102 @@ Game::~Game() {
 void Game::Update() {
 
 
-	
-		//AddString(L"Waiting for data...");
 
-		//clear the buffer by filling null, it might have previously received data
-		memset(buf, '\0', BUFLEN);
 
-		//try to receive some data, this is a blocking call
-		if ((recv_len = recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &si_other, &slen)) == SOCKET_ERROR)
-		{
 
-			AddString(L"recvfrom() failed with error code" + to_wstring(count++));
-			//exit(EXIT_FAILURE);
+
+
+	sockaddr_in add = Socket.RecvFrom(bufff, sizeof(js_event));
+
+
+
+	memcpy(&e, bufff, sizeof(js_event));
+
+	if (e.type == 0x01) {
+
+		if (e.value == 0)B_SET = 0;
+		else B_SET = 1;
+
+
+		switch (e.number) {
+		case 0:
+			if(debug)AddString(L"Button 1");
+			B_1 = B_SET;
+			break;
+		case 1:
+			if (debug)AddString(L"Button 2");
+			B_2 = B_SET;
+			break;
+		case 2:
+			if (debug)AddString(L"Button 3");
+			B_3 = B_SET;
+			break;
+		case 3:
+			if (debug)AddString(L"Button 4");
+			B_4 = B_SET;
+			break;
+		case 4:
+			if (debug)AddString(L"L1");
+			B_L1 = B_SET;
+			break;
+		case 5:
+			if (debug)AddString(L"R1");
+			B_R1 = B_SET;
+			break;
+		case 6:
+			if (debug)AddString(L"L2");
+			B_L2 = B_SET;
+			break;
+		case 7:
+			if (debug)AddString(L"R2");
+			B_R2 = B_SET;
+			break;
+		case 8:
+			if (debug)AddString(L"Select");
+			B_9 = B_SET;
+			break;
+		case 9:
+			if (debug)AddString(L"Start");
+			B_10 = B_SET;
+			break;
+		case 10:
+			if (debug)AddString(L"L3");
+			B_L3 = B_SET;
+			break;
+		case 11:
+			if (debug)AddString(L"R3");
+			B_R3 = B_SET;
+			break;
 		}
 
-		//print details of the client/peer and the data received
-		//printf("Received packet from %s:%d\n", inet_ntoa(si_other.sin_addr), ntohs(si_other.sin_port));
-		//printf("Data: %s\n", buf);
 
-		//now reply the client with the same data
-		if (sendto(s, buf, recv_len, 0, (struct sockaddr*) &si_other, slen) == SOCKET_ERROR)
-		{
-			//AddString(L"sendto() failed with error code");
-			//exit(EXIT_FAILURE);
+	}
+	else if (e.type == 0x02) {
+		switch (e.number) {
+		case 0:
+			AddString(L"Left X-Axis:");
+			break;
+		case 1:
+			AddString(L"Left Y-Axis:");
+			break;
+		case 2:
+			AddString(L"Right X-Axis:");
+			break;
+		case 3:
+			AddString(L"Right Y-Axis:");
+			break;
 		}
+		if (e.value == 0)AddString(L"  ");
+
+
+		AddString(L"at Time:");
+	}
+	else if (e.type == 0x80) {
+	}
+
+
+
+
 	
 
 
@@ -201,14 +237,27 @@ void Game::Draw(){
 
 	sb->Begin();
 	sb->Draw(c1, XMFLOAT2(0.0f, 0.0f));
-	sb->Draw(b_circle, XMFLOAT2(710.0f, 235.0f));
-	sb->Draw(b_dpad, XMFLOAT2(400.0f, 240.0f));
-	sb->Draw(b_l_larger, XMFLOAT2(400.0f, 0.0f));
-	sb->Draw(b_lsmall, XMFLOAT2(0.0f, 0.0f));
-	sb->Draw(b_smallecircle, XMFLOAT2(0.0f, 0.0f));
-	sb->Draw(b_square, XMFLOAT2(0.0f, 0.0f));
+		if(B_L1)sb->Draw(b_lsmall, XMFLOAT2(0.0f, 0.0f));
+		if (B_L2)sb->Draw(b_l_larger, XMFLOAT2(400.0f, 0.0f));
+		if (B_L3);
+		if (B_R1)sb->Draw(b_lsmall, XMFLOAT2(0.0f, 0.0f));
+		if (B_R2)sb->Draw(b_l_larger, XMFLOAT2(400.0f, 0.0f));
+		if (B_R3);
+		if (B_1)sb->Draw(b_circle, XMFLOAT2(710.0f, 235.0f));
+		if (B_2)sb->Draw(b_circle, XMFLOAT2(710.0f, 235.0f));
+		if (B_3)sb->Draw(b_circle, XMFLOAT2(710.0f, 235.0f));
+		if (B_4)sb->Draw(b_circle, XMFLOAT2(710.0f, 235.0f));
+		if (B_9)sb->Draw(b_square, XMFLOAT2(0.0f, 0.0f));
+		if (B_10)sb->Draw(b_square, XMFLOAT2(0.0f, 0.0f));
+		if (B_11)sb->Draw(b_square, XMFLOAT2(0.0f, 0.0f));
+		if (B_12)sb->Draw(b_square, XMFLOAT2(0.0f, 0.0f));
+		if (B_UP)sb->Draw(b_dpad, XMFLOAT2(400.0f, 240.0f));
+		if (B_DOWN)sb->Draw(b_dpad, XMFLOAT2(400.0f, 240.0f));
+		if (B_LEFT)sb->Draw(b_dpad, XMFLOAT2(400.0f, 240.0f));
+		if (B_RIGHT)sb->Draw(b_dpad, XMFLOAT2(400.0f, 240.0f));
 
 
+	//float B_LX, B_LY, B_RX, B_LY; sb->Draw(b_smallecircle, XMFLOAT2(0.0f, 0.0f));
 
 
 	sf->DrawString(sb, L"GAME ANAYLTICS TOOL", XMFLOAT2(100, 100));
