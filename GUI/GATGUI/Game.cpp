@@ -237,24 +237,24 @@ void Game::Draw(){
 
 	sb->Begin();
 	sb->Draw(c1, XMFLOAT2(0.0f, 0.0f));
-		if(B_L1)sb->Draw(b_lsmall, XMFLOAT2(0.0f, 0.0f));
-		if (B_L2)sb->Draw(b_l_larger, XMFLOAT2(400.0f, 0.0f));
+		if(B_L1)sb->Draw(b_lsmall, XMFLOAT2(405.0f, 80.0f));
+		if (B_L2)sb->Draw(b_l_larger, XMFLOAT2(405.0f, 37.0f));
 		if (B_L3);
-		if (B_R1)sb->Draw(b_lsmall, XMFLOAT2(0.0f, 0.0f));
-		if (B_R2)sb->Draw(b_l_larger, XMFLOAT2(400.0f, 0.0f));
+		if (B_R1)sb->Draw(b_lsmall, XMFLOAT2(731.0f, 80.0f));
+		if (B_R2)sb->Draw(b_l_larger, XMFLOAT2(733.0f, 37.0f));
 		if (B_R3);
-		if (B_1)sb->Draw(b_circle, XMFLOAT2(710.0f, 235.0f));
-		if (B_2)sb->Draw(b_circle, XMFLOAT2(710.0f, 235.0f));
-		if (B_3)sb->Draw(b_circle, XMFLOAT2(710.0f, 235.0f));
-		if (B_4)sb->Draw(b_circle, XMFLOAT2(710.0f, 235.0f));
-		if (B_9)sb->Draw(b_square, XMFLOAT2(0.0f, 0.0f));
-		if (B_10)sb->Draw(b_square, XMFLOAT2(0.0f, 0.0f));
+		if (B_1)sb->Draw(b_circle, XMFLOAT2(740.0f, 176.0f));
+		if (B_2)sb->Draw(b_circle, XMFLOAT2(702.0f, 216.0f));
+		if (B_3)sb->Draw(b_circle, XMFLOAT2(740.0f, 255.0f));
+		if (B_4)sb->Draw(b_circle, XMFLOAT2(783.0f, 216.0f));
+		if (B_9)sb->Draw(b_square, XMFLOAT2(537.0f, 237.0f));
+		if (B_10)sb->Draw(b_square, XMFLOAT2(634.0f, 237.0f));
 		if (B_11)sb->Draw(b_square, XMFLOAT2(0.0f, 0.0f));
 		if (B_12)sb->Draw(b_square, XMFLOAT2(0.0f, 0.0f));
-		if (B_UP)sb->Draw(b_dpad, XMFLOAT2(400.0f, 240.0f));
-		if (B_DOWN)sb->Draw(b_dpad, XMFLOAT2(400.0f, 240.0f));
-		if (B_LEFT)sb->Draw(b_dpad, XMFLOAT2(400.0f, 240.0f));
-		if (B_RIGHT)sb->Draw(b_dpad, XMFLOAT2(400.0f, 240.0f));
+		if (B_UP)sb->Draw(b_dpad, XMFLOAT2(424.0f, 195.0f));
+		if (B_DOWN)sb->Draw(b_dpad, XMFLOAT2(424.0f, 255.0f));
+		if (B_LEFT)sb->Draw(b_dpad, XMFLOAT2(395.0f, 224.0f));
+		if (B_RIGHT)sb->Draw(b_dpad, XMFLOAT2(457.0f, 224.0f));
 
 
 	//float B_LX, B_LY, B_RX, B_LY; sb->Draw(b_smallecircle, XMFLOAT2(0.0f, 0.0f));
