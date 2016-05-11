@@ -1,23 +1,17 @@
-
-
 #include "pch.h"
 #include <tchar.h>
-
-
-
-
 #include "Game.h"
 
-static TCHAR szWindowClass[] = ("MKii");
-Game * game;
+int width = 920;
+int height = 680;
+int port = 9787;
 
+static TCHAR szWindowClass[] = ("Game Analytics Tool");
+Game * game;
 HINSTANCE hInst;
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-
-	int width = 920;
-	int height = 680;
 
 	WNDCLASSEX wcex;
 	wcex.cbSize = sizeof(WNDCLASSEX);
@@ -34,14 +28,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_APPLICATION));
 	RegisterClassEx(&wcex);
 
-
 	hInst = hInstance;
 	HWND hWnd = CreateWindow(szWindowClass, szWindowClass, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height, NULL, NULL, hInstance, NULL);
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
 
 	game = new Game(hWnd);
-
 
 	MSG msg = { 0 };
 	while (WM_QUIT != msg.message) {
@@ -54,7 +46,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			game->Draw();
 		}
 	}
-
 	return (int)msg.wParam;
 }
 

@@ -2,14 +2,13 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <WinSock2.h>
 #include <WS2tcpip.h>
-#include <system_error>
+
 #include <string>
 #include <iostream>
 #pragma comment (lib, "Ws2_32.lib")
 using namespace std;
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
-
 
 struct js_event {
 	unsigned int    time;
@@ -18,7 +17,6 @@ struct js_event {
 	unsigned char   number;
 };
 
-
 class Network {
 
 public:
@@ -26,7 +24,6 @@ public:
 	~Network();
 private:
 	WSAData data;
-
 
 };
 
@@ -38,8 +35,8 @@ public:
 
 	void SendTo(string& address, unsigned short port, const char* buffer, int len);
 	void SendTo(sockaddr_in& address, const char* buffer, int len);
-	sockaddr_in RecvFrom(char* buffer, int len);
-	void Bind(unsigned short port);
+	int RecvFrom(char* buffer, int len);
+	int Bind(unsigned short port);
 
 private:
 
