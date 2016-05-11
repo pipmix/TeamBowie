@@ -26,28 +26,16 @@ struct Controller_data //perhaps not the perfect efficiency I had originally hop
 // Main
 int main(int argc, char **argv){
 
-
-
-
 	struct Controller_data current_state; 
 	char buffer[sizeof(js_event)];
 	
-
-
-
 	cout << "Game Analytics Tool " << endl;
-
 	// Network 
-
 	int port = 9787;
-
 	char* ser= argv[1];
-
 
 	USocket Socket;
 	string data = "UDP TEST, this is a test";
-
-
 	Socket.SendTo(ser, port, data.c_str(), data.size());
 
 	// Joystick
@@ -75,7 +63,7 @@ int main(int argc, char **argv){
 
 	while(true){
 
-		//usleep(1000);
+		usleep(1000);
 
  		while (read(fd, &e, sizeof(e)) > 0) {
 
@@ -148,13 +136,19 @@ int main(int argc, char **argv){
                     if ( e.value == 0 )cout << "\t";
                     cout << e.value ;
                     cout  << "\t at Time: " << e.time - startTime<< endl;
+
+		//memcpy(buffer, &e, sizeof(e));
+		//Socket.SendTo(ser, port, buffer, sizeof(buffer));
+		//cout << "SENT" << endl;
+
                 }
                 else if (e.type == 0x80){
+
                 }
+
 
 		memcpy(buffer, &e, sizeof(e));
 		Socket.SendTo(ser, port, buffer, sizeof(buffer));
-		cout << "SENT" << endl;
 
 
         }
